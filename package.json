@@ -12,12 +12,15 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
+    "koa-generic-session": "^2.1.1",
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.0",
     "koa-onerror": "^4.1.0",
+    "koa-redis": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
+    "koa2-cors": "^2.0.6",
     "mysql2": "^2.2.5",
     "pug": "^2.0.3",
     "redis": "^3.0.2",
@@ -26,6 +29,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "jest": "^26.6.3",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "supertest": "^6.0.1"
   }
 }
