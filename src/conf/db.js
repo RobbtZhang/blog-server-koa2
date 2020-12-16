@@ -15,7 +15,7 @@
    user: 'root',
    password:'zhangyingsheng',
    port: '3306',
-   database: 'blog_koa2_db'
+   database: 'blog'
  }
 
  if (isProd) {

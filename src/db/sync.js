@@ -3,6 +3,7 @@
  */
 
 const seq = require('./seq')
+require('./model/index')
 
 seq.authenticate().then(() => {
   console.log('authenticate success')

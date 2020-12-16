@@ -8,14 +8,23 @@ const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const cors = require('koa2-cors')
+const koaStatic = require('koa-static')
+const path = require('path')
 
 const { REDIS_CONF } = require('./conf/db')
 const { isProd } = require('./utils/env')
+const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
 const index = require('./routes/index')
-const users = require('./routes/users')
+const user = require('./routes/api/user')
+const utils = require('./routes/api/utils')
+const createBlog = require('./routes/api/create-blog')
+const profile = require('./routes/api/profile')
+const home = require('./routes/api/home')
 const notfound = require('./routes/api/notfound')
 const error = require('./routes/api/error')
+
+const { loginCheck } = require('./middleware/loginCheck')
 
 // error handler
 
@@ -57,27 +66,32 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
+
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
 
 // session 配置
-app.keys = ['Zys_100']
+app.keys = [SESSION_SECRET_KEY]
 app.use(session({
   key: 'blog.sid', //cookie name default: koa.sid
   prefix: 'blog:sess:', // redis key 的前缀， 默认是koa：session：
   cookie: {
     path: '/',
     httpOnly: true,
-    maxAge: 1000 * 60 // ms
+    maxAge: 1000 * 60 * 60 // ms
   },
   // ttl: 5, 默认 cookie 过期时间
   store: redisStore({
     all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
   })
 }))
+
+// 自定义中间件
+// app.use(loginCheck)
 
 // logger
 // app.use(async (ctx, next) => {
@@ -89,7 +103,11 @@ app.use(session({
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(user.routes(), user.allowedMethods())
+app.use(utils.routes(), utils.allowedMethods())
+app.use(createBlog.routes(), createBlog.allowedMethods())
+app.use(profile.routes(), profile.allowedMethods())
+app.use(home.routes(), home.allowedMethods())
 app.use(error.routes(), error.allowedMethods())
 app.use(notfound.routes(), notfound.allowedMethods())
 
