@@ -10,7 +10,7 @@ const redisStore = require('koa-redis')
 const cors = require('koa2-cors')
 const koaStatic = require('koa-static')
 const path = require('path')
-const history = require('connect-history-api-fallback')
+const historyApiFallback  = require('koa2-connect-history-api-fallback')
 
 const { REDIS_CONF } = require('./conf/db')
 const { isProd } = require('./utils/env')
@@ -61,7 +61,7 @@ app.use(cors({
 // }
 
 // 处理 history router
-app.use(history())
+app.use(historyApiFallback({ whiteList: ['/api'] }))
 
 // middlewares
 app.use(bodyparser({
