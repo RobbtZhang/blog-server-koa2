@@ -11,24 +11,23 @@
  }
 
  let MYSQL_CONF = {
-   host: 'localhost',
+   host: '127.0.0.1',
    user: 'root',
-   password:'zhangyingsheng',
+   password:'[Zys,950610.]',
    port: '3306',
-   database: 'blog'
+   database: 'blog_koa2_db'
  }
 
  if (isProd) {
   let REDIS_CONF = {
     port: 6379,
-    host: '127.0.0.1',
-    password: 'zhangyingsheng'
+    host: '127.0.0.1'
   }
  
   let MYSQL_CONF = {
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
-    password:'zhangyingsheng',
+    password:'[Zys,950610.]',
     port: '3306',
     database: 'blog_koa2_db'
   }
