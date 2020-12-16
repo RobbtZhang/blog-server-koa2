@@ -10,6 +10,7 @@ const redisStore = require('koa-redis')
 const cors = require('koa2-cors')
 const koaStatic = require('koa-static')
 const path = require('path')
+const history = require('connect-history-api-fallback')
 
 const { REDIS_CONF } = require('./conf/db')
 const { isProd } = require('./utils/env')
@@ -59,6 +60,8 @@ app.use(cors({
 //   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'] //设置获取其他自定义字段
 // }
 
+// 处理 history router
+app.use(history())
 
 // middlewares
 app.use(bodyparser({
