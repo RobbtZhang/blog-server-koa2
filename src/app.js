@@ -41,7 +41,7 @@ onerror(app, onerrorConf)
 // 跨域
 app.use(cors({
   origin: function (ctx) { //设置允许来自指定域名请求
-      return 'http://localhost:8080' // 只允许http://localhost:8080这个域名的请求
+      return 'http://www.zhangyingsheng.xyz' // 只允许http://localhost:8080这个域名的请求
   },
   maxAge: 5, // 指定本次预检请求的有效期，单位为秒。
   credentials: true, // 是否允许发送Cookie
@@ -82,7 +82,7 @@ app.use(session({
   cookie: {
     path: '/',
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 // ms
+    maxAge: 1000 * 60 * 60 * 24 // ms
   },
   // ttl: 5, 默认 cookie 过期时间
   store: redisStore({
